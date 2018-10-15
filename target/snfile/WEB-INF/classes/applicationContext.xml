@@ -24,5 +24,9 @@
 		</property>
 		<property name ="ignoreUnresolvablePlaceholders" value ="true" />
 	</bean>
+
+	<import resource="applicationContext-datasource.xml"/>
+
+
 	
 </beans>

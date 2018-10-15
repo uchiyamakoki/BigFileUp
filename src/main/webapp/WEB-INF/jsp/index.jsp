@@ -8,14 +8,39 @@
             src="http://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
     <script type="text/javascript"
             src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.min.js"></script>
+    <link href="${pageContext.request.contextPath}/css/javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画样式-->
+    <link href="${pageContext.request.contextPath}/css/javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--核心样式-->
+    <link href="${pageContext.request.contextPath}/css/javaex/pc/css/style.css" rel="stylesheet" />
 </head>
 <body>
+<div id="header">
+    <div>
+        <a href="#"> <img class="logo-img"
+                          src="${pageContext.request.contextPath}/css/javaex/pc/images/logo.png">
+        </a>
+    </div>
+    <!--右侧功能-->
+    <ul class="pull-right header-right">
+        <li>
+            <a class="pull-left user-photo" href="#"><img src="${pageContext.request.contextPath}/css/javaex/pc/images/user.jpg" alt=""></a>
+            <p class="pull-left margin-left-10">
+                欢迎您，<span>${user.username }</span>
+            </p> <label class="margin-left-10 margin-right-10">|</label> <a
+                href="/user/logout.do">退出</a></li>
+        <li>
+        </li>
+        <li><a href="${pageContext.request.contextPath}/">首页</a></li>
+    </ul>
+</div>
+
 <div id="uploader" class="wu-example">
     <!--用来存放文件信息-->
     <div id="thelist" class="uploader-list"></div>
     <div class="btns">
         <div id="picker">选择文件</div>
-        <button id="ctlBtn" class="btn btn-default">开始上传</button>
+        <button id="ctlBtn" class="button wathet">开始上传</button>
     </div>
 </div>
 </body>
@@ -46,10 +71,21 @@
     uploader.on( "uploadSuccess", function( file ) {
         $.post('/uploadFile/mergeFile.do', { guid: GUID, fileName: file.name }, function (data) {
             var result = data.results;
-            if(result.code == 200){
+            //alert("11111111111111");
+            //alert(data);
+            //alert(data.code);
+            //alert(data.code);
+            if(data.code == "200"){
                 alert('上传成功!');
+            }else if (data.code == "400"){
+                alert('上传失败!');
+            }else if (data.code=="600"){
+                alert("没有权限!");
             }
-        });
+        },'json');
+    });
+    uploader.on('uploadError', function (file) {
+       alert("没有权限");
     });
 </script>
 </html>

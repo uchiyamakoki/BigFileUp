@@ -9,7 +9,7 @@
 	<context:property-placeholder location="classpath:config.properties"/>
 
 	<!-- 扫描web包，应用Spring的注解 -->
-	<context:component-scan base-package="com.sn.controller"/>
+	<context:component-scan base-package="com.sn"/>
 	
 	<!-- 会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,
 	是spring MVC为@Controllers分发请求所必须的。 -->
