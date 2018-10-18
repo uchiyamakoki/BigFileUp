@@ -13,6 +13,8 @@
     <link href="${pageContext.request.contextPath}/css/javaex/pc/css/animate.css" rel="stylesheet" />
     <!--核心样式-->
     <link href="${pageContext.request.contextPath}/css/javaex/pc/css/style.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <div id="header">
@@ -35,12 +37,17 @@
     </ul>
 </div>
 
-<div id="uploader" class="wu-example">
+<div id="uploader" class="wu-example" >
     <!--用来存放文件信息-->
     <div id="thelist" class="uploader-list"></div>
-    <div class="btns">
-        <div id="picker">选择文件</div>
-        <button id="ctlBtn" class="button wathet">开始上传</button>
+    <div class="btns" style="text-align:center">
+        <div id="picker" style="margin-left: 325px">选择文件</div>
+        <button id="ctlBtn" class="button wathet" style="margin-top: 5px">开始上传</button>
+    </div>
+</div>
+<div class="progress" style="margin-top: 5px">
+    <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="percentage_a">
+        <span id="percentage">0%</span>
     </div>
 </div>
 </body>
@@ -87,5 +94,12 @@
     uploader.on('uploadError', function (file) {
        alert("没有权限");
     });
+    uploader.on('uploadProgress', function (file, percentage) {
+        $("#percentage_a").css("width",parseInt(percentage * 100)+"%");
+        $("#percentage").html(parseInt(percentage * 100) +"%");
+
+    });
+
+
 </script>
 </html>
