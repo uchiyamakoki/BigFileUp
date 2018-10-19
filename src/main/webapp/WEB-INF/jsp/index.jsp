@@ -72,7 +72,23 @@
         resize: false
     });
     $("#ctlBtn").click(function () {
-        uploader.upload();
+        $.ajax({
+            url:'/user/check.do',
+            type:"GET",
+            dataType:"json",
+            success:function (data) {
+                //alert(data);
+                if(data.code == "200"){
+                    alert('开始上传!');
+                    uploader.upload();
+                }else if (data.code == "400"){
+                    alert('没有权限!');
+                }else if (data.code=="600"){
+                   // alert("没有权限!");
+                }
+            }
+        });
+
     });
     //当文件上传成功时触发。
     uploader.on( "uploadSuccess", function( file ) {

@@ -4,6 +4,7 @@ import com.sn.common.Const;
 import com.sn.common.ServerResponse;
 import com.sn.pojo.User;
 import com.sn.service.IUserService;
+import com.sn.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,6 +53,26 @@ public class UserController {
     public String logout(HttpSession session){
         session.invalidate();
         return "login";
+    }
+
+    @RequestMapping("check")
+    @ResponseBody
+    public JsonResult check(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        User user= (User) session.getAttribute(Const.CURRENT_USER);
+
+        JsonResult jsonReulst = new JsonResult();
+
+        if (user.getRole()==Const.Role.ROLE_ADMIN){
+            jsonReulst.setState("SUCCESS");
+            jsonReulst.setCode(200);
+            return jsonReulst;
+        }else if(user.getRole()==Const.Role.ROLE_CUSTOMER){
+            jsonReulst.setState("没有权限");
+            jsonReulst.setCode(400);
+            return jsonReulst;
+        }
+        return null;
     }
 
 
